@@ -1,1 +1,21 @@
-<p>list-todos works!</p>
+<table border="1">
+  <caption>My todo's</caption>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>description</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (todo of todos; track todo.id) {
+      <tr>
+        <td>{{ todo.id }}</td>
+        <td>{{ todo.description }}</td>
+      </tr>
+    }
+  <!--  <tr *ngFor="let todo of todos">-->
+  <!--    <td>{{ todo.id }}</td>-->
+  <!--    <td>{{ todo.description }}</td>-->
+  <!--  </tr>-->
+  </tbody>
+</table>
