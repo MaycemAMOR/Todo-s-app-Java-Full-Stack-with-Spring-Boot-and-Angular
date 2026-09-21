@@ -1,0 +1,22 @@
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {Menu} from './menu';
+import {beforeEach, describe, expect, it} from 'vitest';
+
+describe('Menu', () => {
+  let component: Menu;
+  let fixture: ComponentFixture<Menu>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Menu],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Menu);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toString()
+  });
+});
