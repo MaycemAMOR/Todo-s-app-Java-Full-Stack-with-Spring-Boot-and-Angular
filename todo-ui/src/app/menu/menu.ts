@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
+import {HardcodedAuthentication} from '../services/hardcoded-authentication';
 
 @Component({
   imports: [
@@ -10,4 +11,9 @@ import {RouterLink} from '@angular/router';
   templateUrl: './menu.html',
   standalone: true
 })
-export class Menu {}
+export class Menu {
+  constructor(
+    public hardcodedAuthentication: HardcodedAuthentication
+  ) {
+  }
+}

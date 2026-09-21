@@ -19,7 +19,7 @@ export class Login {
 
   constructor(
     private router: Router,
-    private aut:HardcodedAuthentication
+    public aut:HardcodedAuthentication
   ) {
   }
 
