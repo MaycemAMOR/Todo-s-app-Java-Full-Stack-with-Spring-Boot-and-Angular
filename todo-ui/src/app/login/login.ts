@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {HardcodedAuthentication} from '../services/hardcoded-authentication';
 
 @Component({
   imports: [FormsModule],
@@ -17,16 +18,16 @@ export class Login {
   invalidLogin: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private aut:HardcodedAuthentication
   ) {
   }
 
   handleLogin() {
-    if (this.username == "in28minutes" && this.password == 'dummy') {
-      this.router.navigate(['welcome', this.username]);
+      this.invalidLogin = !this.aut.authenticate(this.username,this.password);
+      if(!this.invalidLogin){
+        this.router.navigate(['welcome',this.username])
+      }
       console.log(this.invalidLogin);
-    } else {
-      this.invalidLogin = true;
-    }
   }
 }
