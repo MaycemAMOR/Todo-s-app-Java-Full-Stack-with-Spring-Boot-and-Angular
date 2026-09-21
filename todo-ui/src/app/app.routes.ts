@@ -3,6 +3,7 @@ import {Welcome} from './welcome/welcome';
 import {Login} from './login/login';
 import {Error} from './error/error';
 import {ListTodos} from './list-todos/list-todos';
+import {Logout} from './logout/logout';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: 'todos',
     component: ListTodos
+  },
+  {
+    path:'logout',
+    component:Logout
   },
   {
     path: '**',
