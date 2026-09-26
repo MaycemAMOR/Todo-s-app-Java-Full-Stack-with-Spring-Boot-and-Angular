@@ -12,7 +12,7 @@ import {HardcodedAuthentication} from '../services/hardcoded-authentication';
 })
 export class Login {
 
-  username = 'in28minutes';
+  username = 'Mytech';
   password = '';
   errorMsg: string = 'Invalid Credentials';
   invalidLogin: boolean = false;

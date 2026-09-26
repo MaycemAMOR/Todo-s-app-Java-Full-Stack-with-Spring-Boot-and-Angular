@@ -3,3 +3,19 @@
   Welcome {{ name }}. you can manage your todos <a routerLink="/todos"> here</a>
 </div>
 
+<div class="container">
+  Click here to get a customized welcome message
+  <button (click)="getPersonalisedWelcomeMessage()" class="btn btn-success">Get Welcome Message</button>
+</div>
+<div class="container">
+  Click here to get a customized welcome message with parameter
+  <button (click)="getPersonalisedWelcomeMessageWithParameter()" class="btn btn-success">Get Welcome Message</button>
+</div>
+
+<!-- On vérifie si le Signal welcomeMessageFromService  contient un message non nul -->
+@if (welcomeMessageFromService()) {
+  <div class="container">
+    <h2>Your Customized Welcome Message</h2>
+    {{ welcomeMessageFromService() }}
+  </div>
+}

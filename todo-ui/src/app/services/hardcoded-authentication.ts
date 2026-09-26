@@ -23,7 +23,7 @@ export class HardcodedAuthentication {
   }
 
   public authentication(username: string, password: string): boolean {
-    return username === "in28minutes" && password === 'dummy';
+    return username === "Mytech" && password === '06864321';
   }
 
   logout(): void {

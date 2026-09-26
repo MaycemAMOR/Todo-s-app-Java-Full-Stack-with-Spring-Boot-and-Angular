@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component, OnInit, signal} from '@angular/core';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {HardcodedAuthentication} from '../services/hardcoded-authentication';
 
 @Component({
@@ -11,9 +11,16 @@ import {HardcodedAuthentication} from '../services/hardcoded-authentication';
   templateUrl: './menu.html',
   standalone: true
 })
-export class Menu {
+export class Menu implements OnInit {
+  public name = signal<string | null>(null);
+
   constructor(
-    public hardcodedAuthentication: HardcodedAuthentication
+    public hardcodedAuthentication: HardcodedAuthentication,
+    private route: ActivatedRoute
   ) {
+  }
+
+  ngOnInit(): void {
+    this.name.set(sessionStorage.getItem('authenticateUser'));
   }
 }

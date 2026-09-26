@@ -3,7 +3,7 @@
     <div><a class="navbar-brand" href="https://www.myteck.com">MyTech</a></div>
     <ul class="navbar-nav">
       @if (hardcodedAuthentication.isUserLoggedIn()) {
-        <li><a class="nav-link" routerLink="welcome/maycem">Home</a></li>
+        <li><a class="nav-link" [routerLink]="['/welcome',name()]">Home</a></li>
         <li><a class="nav-link" routerLink="/todos">Todos</a></li>
       }
     </ul>
