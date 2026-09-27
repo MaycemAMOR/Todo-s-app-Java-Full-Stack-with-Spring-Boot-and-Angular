@@ -1,4 +1,9 @@
 <h1>My Todo's</h1>
+
+@if (message()) {
+  <div class=" alert alert-warning">{{ message() }}</div>
+}
+
 <div class="container">
   <table class="table">
     <thead>
@@ -6,15 +11,19 @@
       <th>Description</th>
       <th>Target Date</th>
       <th>Is Completed?</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
 
-      @for (todo of todos; track todo.id) {
+      @for (todo of todos(); track todo.id) {
         <tr>
           <td>{{ todo.description }}</td>
           <td>{{ todo.targetDate | date|uppercase }}</td>
           <td>{{ todo.done }}</td>
+          <td>
+            <button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete Todo</button>
+          </td>
         </tr>
       }
     <!--  <tr *ngFor="let todo of todos">-->

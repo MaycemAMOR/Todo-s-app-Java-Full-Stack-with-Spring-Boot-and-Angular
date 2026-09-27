@@ -1,4 +1,4 @@
-package com.mytech.todo.webservices;
+package com.mytech.todo.webservices.helloworld;
 
 
 import lombok.Getter;
