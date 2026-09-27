@@ -1,8 +1,8 @@
 import {Component, OnInit, signal, WritableSignal} from '@angular/core';
-import {Todo} from '../models/todo';
+import {TodoBean} from '../models/todoBean';
 import {DatePipe, UpperCasePipe} from '@angular/common';
 import {TodoData} from '../services/data/todo-data';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   imports: [
@@ -19,13 +19,14 @@ import {ActivatedRoute} from '@angular/router';
 export class ListTodos implements OnInit {
 
 
-  todos: WritableSignal<Todo[] | null> = signal<Todo[] | null>(null);
+  todos: WritableSignal<TodoBean[] | null> = signal<TodoBean[] | null>(null);
   name: string = '';
   message: WritableSignal<String | null> = signal<String | null>(null);
 
   constructor(
     private todoService: TodoData,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) {
   }
 
@@ -59,6 +60,12 @@ export class ListTodos implements OnInit {
         console.log(error)
       }
     })
+  }
+
+  protected updateTodo(id: any) {
+    console.log(`update Of Todo ${id} Successful !`)
+    this.router.navigate(['todos',id]);
+
   }
 }
 

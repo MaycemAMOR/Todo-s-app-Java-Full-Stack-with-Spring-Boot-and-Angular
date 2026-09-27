@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Todo} from '../../models/todo';
+import {TodoBean} from '../../models/todoBean';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,12 @@ export class TodoData {
   }
 
   retrieveAllToDos(username: string) {
-    return this.http.get<Todo[]>(`http://localhost:8080/users/${username}/todos`);
+    return this.http.get<TodoBean[]>(`http://localhost:8080/users/${username}/todos`);
   }
   deleteTodo(username:string,id:number){
-    return this.http.delete(`http://localhost:8080/users/${username}/todo/${id}`)
+    return this.http.delete(`http://localhost:8080/users/${username}/todos/${id}`)
+  }
+  retrieveTodo(username:string,id:number){
+    return this.http.get<TodoBean>(`http://localhost:8080/users/${username}/todos/${id}`)
   }
 }

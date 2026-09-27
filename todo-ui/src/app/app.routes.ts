@@ -5,8 +5,10 @@ import {Error} from './error/error';
 import {ListTodos} from './list-todos/list-todos';
 import {Logout} from './logout/logout';
 import {RouteGuard} from './services/route-guard';
+import {Todo} from './todo/todo';
+import {todoResolver} from './resolver/todoResolver';
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: Login
@@ -14,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'welcome/:name',
     component: Welcome,
-    canActivate:[RouteGuard]
+    canActivate: [RouteGuard]
   },
   {
     path: 'login',
@@ -23,15 +25,29 @@ export const routes: Routes = [
   {
     path: 'todos',
     component: ListTodos,
-    canActivate:[RouteGuard]
+    canActivate: [RouteGuard]
   },
   {
-    path:'logout',
-    component:Logout,
-    canActivate:[RouteGuard]
+    path: 'logout',
+    component: Logout,
+    canActivate: [RouteGuard]
+  },
+  {
+    path: 'todos/:id',
+    component: Todo,
+    canActivate: [RouteGuard]
+    /**
+     ****
+     * avec le Resolver fonctionnel (todoResolver.ts)
+     */
+    // ,
+    // resolve: {
+    //   todoData: todoResolver // La donnée sera accessible sous la clé 'todoData'
+    // }
   },
   {
     path: '**',
     component: Error
   }
 ];
+export default routes
