@@ -1,6 +1,6 @@
 import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {TodoData} from '../services/data/todo-data';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TodoBean} from '../models/todoBean';
 import {FormsModule} from '@angular/forms';
 import {DatePipe} from '@angular/common';
@@ -23,7 +23,8 @@ export class Todo implements OnInit {
 
   constructor(
     private todoService: TodoData,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -53,15 +54,33 @@ export class Todo implements OnInit {
   }
 
   protected saveTodo() {
+    const todoValue = this.todo(); // Extraction de la valeur du Signal
+    if (!todoValue) return;
+
+    if (this.todoId === -1) {
+      //creation de todo
+    } else {
+      //update todo
+      this.todoService.updateTodo(this.name, this.todoId, todoValue).subscribe({
+        next: (response) => {
+          console.log(response)
+          this.router.navigate(['todos'])
+
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+    }
+
 
   }
 }
 
 
-
 /**
-****
-* avec le Resolver fonctionnel (todoResolver.ts)
+ ****
+ * avec le Resolver fonctionnel (todoResolver.ts)
  */
 // import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 // import { ActivatedRoute, Router } from '@angular/router';

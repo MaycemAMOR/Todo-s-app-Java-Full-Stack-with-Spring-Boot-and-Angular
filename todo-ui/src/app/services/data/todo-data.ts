@@ -16,10 +16,16 @@ export class TodoData {
   retrieveAllToDos(username: string) {
     return this.http.get<TodoBean[]>(`http://localhost:8080/users/${username}/todos`);
   }
-  deleteTodo(username:string,id:number){
-    return this.http.delete(`http://localhost:8080/users/${username}/todos/${id}`)
+
+  deleteTodo(username: string, id: number) {
+    return this.http.delete(`http://localhost:8080/users/${username}/todos/${id}`);
   }
-  retrieveTodo(username:string,id:number){
-    return this.http.get<TodoBean>(`http://localhost:8080/users/${username}/todos/${id}`)
+
+  retrieveTodo(username: string, id: number) {
+    return this.http.get<TodoBean>(`http://localhost:8080/users/${username}/todos/${id}`);
+  }
+
+  updateTodo(username: string, id: number, todo: TodoBean) {
+    return this.http.put<TodoBean>(`http://localhost:8080/users/${username}/todos/${id}`, todo);
   }
 }

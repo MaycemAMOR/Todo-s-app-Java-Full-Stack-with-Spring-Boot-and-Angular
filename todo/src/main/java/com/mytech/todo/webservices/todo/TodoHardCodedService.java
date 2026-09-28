@@ -24,11 +24,12 @@ public class TodoHardCodedService {
     }
 
     public Todo save(Todo todo) {
-        if (todo.getId() == null || todo.getId() == -1 || todo.getId() == 0) {
+        if (todo.getId() == null || todo.getId() == -1) {
             todo.setId(++idCounter);
             todos.add(todo);
         } else {
             deleteById(todo.getId());
+            todos.add(todo);
         }
         return todo;
     }
