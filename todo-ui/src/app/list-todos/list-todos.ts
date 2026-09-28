@@ -26,7 +26,7 @@ export class ListTodos implements OnInit {
   constructor(
     private todoService: TodoData,
     private route: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) {
   }
 
@@ -64,8 +64,12 @@ export class ListTodos implements OnInit {
 
   protected updateTodo(id: any) {
     console.log(`update Of Todo ${id} Successful !`)
-    this.router.navigate(['todos',id]);
+    this.router.navigate(['todos', id]);
 
+  }
+
+  protected createTodo() {
+    this.router.navigate(['todos', -1]);
   }
 }
 

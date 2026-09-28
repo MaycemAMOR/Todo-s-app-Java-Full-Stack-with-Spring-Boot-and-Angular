@@ -38,7 +38,7 @@ export class Todo implements OnInit {
     this.todo.set(new TodoBean(this.todoId, '', false, new Date()));
 
     // 3. Charger les données du backend uniquement s'il s'agit d'une modification
-    if (this.todoId !== -1) {
+    if (this.todoId != -1) {
       this.todoService.retrieveTodo(this.name, this.todoId).subscribe({
         next: response => {
           this.todo.set(response);
@@ -59,6 +59,15 @@ export class Todo implements OnInit {
 
     if (this.todoId === -1) {
       //creation de todo
+      this.todoService.createTodo(this.name, todoValue).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.router.navigate(['todos']);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
     } else {
       //update todo
       this.todoService.updateTodo(this.name, this.todoId, todoValue).subscribe({
