@@ -10,7 +10,7 @@ import java.util.List;
 public class TodoHardCodedService {
 
     private static final List<Todo> todos = new ArrayList<>();
-    private static int idCounter = 0;
+    private static long idCounter = 0;
 
     static {
         todos.add(new Todo(idCounter, "Mytech", "Learn to Dance", new Date(), false));
@@ -21,6 +21,16 @@ public class TodoHardCodedService {
 
     public List<Todo> FindAll() {
         return todos;
+    }
+
+    public Todo save(Todo todo) {
+        if (todo.getId() == null || todo.getId() == -1 || todo.getId() == 0) {
+            todo.setId(++idCounter);
+            todos.add(todo);
+        } else {
+            deleteById(todo.getId());
+        }
+        return todo;
     }
 
     public Todo deleteById(long id) {

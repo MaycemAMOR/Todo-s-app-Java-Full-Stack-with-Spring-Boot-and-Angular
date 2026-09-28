@@ -1,9 +1,6 @@
 package com.mytech.todo.webservices.todo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Objects;
@@ -12,18 +9,19 @@ import java.util.Objects;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Todo {
-    private long id;
+    private Long id;
     private String username;
     private String description;
     private Date targetDate;
-    private boolean isDone;
+    private Boolean done;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Todo todo = (Todo) o;
-        return id == todo.id;
+        return Objects.equals(id, todo.id);
     }
 
     @Override
