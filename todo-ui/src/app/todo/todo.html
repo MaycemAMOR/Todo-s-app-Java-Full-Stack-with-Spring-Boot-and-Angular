@@ -4,22 +4,39 @@
 <!--Le two-way binding [(ngModel)] s'applique alors directement -->
 <!--sur les propriétés de cet objet :-->
 
+
+
 @if (todo(); as item) {
   <div class="container">
-    <fieldset class="form-group">
-      <label>Description</label>
-      <input type="text"
-             [(ngModel)]="item.description"
-             class="form-control" name="description" required="required">
-    </fieldset>
-    <fieldset class="form-group">
-      <label>Target Date</label>
-      <input type="date"
-             [ngModel]="item.targetDate | date:'yyyy-MM-dd' "
-             (ngModelChange)="item.targetDate = $event"
-             class="form-control" name="targetDate" required="required">
-    </fieldset>
 
-    <button class="btn btn-success" (click)="saveTodo()">Save</button>
+    @if (todoForm.dirty && todoForm.invalid) {
+      <div class="alert alert-warning"> Enter valid values</div>
+    }
+
+    @if (todoForm.dirty && targetDate.invalid) {
+      <div class="alert alert-warning"> Enter valid Target Date</div>
+    }
+
+    @if (todoForm.dirty && description.invalid) {
+      <div class="alert alert-warning"> Enter at least 5 characters in Description</div>
+    }
+
+    <form (ngSubmit)="!todoForm.invalid && saveTodo()" #todoForm="ngForm">
+      <fieldset class="form-group">
+        <label>Description</label>
+        <input type="text" #description="ngModel"
+               [(ngModel)]="item.description"
+               class="form-control" name="description" required="required" minlength="5">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Target Date</label>
+        <input type="date" #targetDate="ngModel"
+               [ngModel]="item.targetDate | date:'yyyy-MM-dd' "
+               (ngModelChange)="item.targetDate = $event"
+               class="form-control" name="targetDate" required="required">
+      </fieldset>
+
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
   </div>
 }
