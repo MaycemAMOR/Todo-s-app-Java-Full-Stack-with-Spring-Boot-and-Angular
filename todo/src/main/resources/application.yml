@@ -2,4 +2,8 @@ logging:
   level:
     org:
       springframework: debug
-
+spring:
+  security:
+    user:
+      name: user
+      password: password
