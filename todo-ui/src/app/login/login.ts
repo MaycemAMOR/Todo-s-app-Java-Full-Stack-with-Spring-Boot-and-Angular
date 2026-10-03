@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
-import {HardcodedAuthentication} from '../services/hardcoded-authentication';
+import {BasicAuthentication} from '../services/basic-authentication';
 
 @Component({
   imports: [FormsModule],
@@ -19,7 +19,8 @@ export class Login {
 
   constructor(
     private router: Router,
-    public aut:HardcodedAuthentication
+    // public aut:HardcodedAuthentication
+    public aut:BasicAuthentication
   ) {
   }
 
@@ -29,5 +30,27 @@ export class Login {
         this.router.navigate(['welcome',this.username])
       }
       console.log(this.invalidLogin);
+  }
+
+  handleBasicAuthLogin() {
+    this.aut.executeBasicAuthenticationService(this.username, this.password).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.router.navigate(['welcome', this.username]);
+          this.invalidLogin = false;
+        },
+        error: (error) => {
+          this.invalidLogin = true;
+          console.log(this.invalidLogin);
+          console.log(error);
+        }
+      }
+    )
+
+    // this.invalidLogin = !this.aut.authenticate(this.username,this.password);
+    // if(!this.invalidLogin){
+    //
+    // }
+    // console.log(this.invalidLogin);
   }
 }

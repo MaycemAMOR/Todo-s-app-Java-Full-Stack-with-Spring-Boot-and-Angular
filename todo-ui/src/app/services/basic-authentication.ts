@@ -1,5 +1,6 @@
 import {Injectable, signal} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map} from 'rxjs';
 
 class AuthenticationBean {
   constructor(public message: String) {
@@ -39,7 +40,15 @@ export class BasicAuthentication {
       Authorization: basicAuthenticationHeaderString
     });
     return this.http.get<AuthenticationBean>('http://localhost:8080/basicauth',
-      {headers});
+      {headers}).pipe(
+      map(
+        data => {
+          sessionStorage.setItem('authenticateUser', username);
+          this.isUserLoggedIn.set(true); // 👈 On informe Angular du changement d'état !
+          return data;
+        }
+      )
+    );
     //console.log("Execute Hello World Bean Service")
   }
 
