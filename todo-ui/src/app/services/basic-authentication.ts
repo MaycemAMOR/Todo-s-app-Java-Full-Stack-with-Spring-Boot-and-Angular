@@ -66,6 +66,22 @@ export class BasicAuthentication {
     //console.log("Execute Hello World Bean Service")
   }
 
+  public executeJwtAuthenticationService(username: string, password: string) {
+
+    return this.http.post<any>(`${API_URL}/authenticate`, {username, password}).pipe(
+      map(
+        data => {
+          sessionStorage.setItem(AUTHENTICATED_USER, username);
+          sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+
+          this.isUserLoggedIn.set(true); // 👈 On informe Angular du changement d'état !
+          return data;
+        }
+      )
+    );
+    //console.log("Execute Hello World Bean Service")
+  }
+
 
   public authentication(username: string, password: string): boolean {
     return username === "Mytech" && password === '06864321';

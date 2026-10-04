@@ -33,8 +33,31 @@ export class Login {
   //     console.log(this.invalidLogin);
   // }
 
-  handleBasicAuthLogin() {
-    this.aut.executeBasicAuthenticationService(this.username, this.password).subscribe({
+  // handleBasicAuthLogin() {
+  //   this.aut.executeBasicAuthenticationService(this.username, this.password).subscribe({
+  //       next: (response) => {
+  //         console.log(response);
+  //         this.router.navigate(['welcome', this.username]);
+  //         this.invalidLogin.set(false);
+  //         //console.log(  this.invalidLogin());
+  //       },
+  //       error: (error) => {
+  //         this.invalidLogin.set(true);
+  //         console.log(this.invalidLogin);
+  //         console.log(error);
+  //       }
+  //     }
+  //   )
+  //
+  //   // this.invalidLogin = !this.aut.authenticate(this.username,this.password);
+  //   // if(!this.invalidLogin){
+  //   //
+  //   // }
+  //   // console.log(this.invalidLogin);
+  // }
+
+  handleJwtAuthLogin() {
+    this.aut.executeJwtAuthenticationService(this.username, this.password).subscribe({
         next: (response) => {
           console.log(response);
           this.router.navigate(['welcome', this.username]);
