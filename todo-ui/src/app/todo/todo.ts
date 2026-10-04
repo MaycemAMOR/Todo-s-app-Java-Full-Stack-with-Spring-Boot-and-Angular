@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TodoBean} from '../models/todoBean';
 import {FormsModule} from '@angular/forms';
 import {DatePipe} from '@angular/common';
+import {AUTHENTICATED_USER} from '../app.constants';
 
 @Component({
   imports: [
@@ -30,7 +31,7 @@ export class Todo implements OnInit {
 
   ngOnInit(): void {
 
-    this.name = sessionStorage.getItem('authenticateUser') || '';
+    this.name = sessionStorage.getItem(AUTHENTICATED_USER) || '';
     this.todoId = this.route.snapshot.params['id'];
     console.log(this.name);
     console.log(this.todoId);

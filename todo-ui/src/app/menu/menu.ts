@@ -1,6 +1,7 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {BasicAuthentication} from '../services/basic-authentication';
+import {AUTHENTICATED_USER} from '../app.constants';
 
 @Component({
   imports: [
@@ -21,6 +22,6 @@ export class Menu implements OnInit {
   }
 
   ngOnInit(): void {
-    this.name.set(sessionStorage.getItem('authenticateUser'));
+    this.name.set(sessionStorage.getItem(AUTHENTICATED_USER));
   }
 }

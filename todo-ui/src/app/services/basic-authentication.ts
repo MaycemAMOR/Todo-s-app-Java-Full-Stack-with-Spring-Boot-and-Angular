@@ -1,6 +1,7 @@
 import {Injectable, signal} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs';
+import {API_URL, AUTHENTICATED_USER, TOKEN} from '../app.constants';
 
 class AuthenticationBean {
   constructor(public message: String) {
@@ -21,24 +22,24 @@ export class BasicAuthentication {
   }
 
   private checkUserLoggedIn(): boolean {
-    const user = sessionStorage.getItem('authenticateUser');
+    const user = sessionStorage.getItem(AUTHENTICATED_USER);
     return user !== null;
   }
 
   public getAuthenticatedUser(): string | null {
-    return sessionStorage.getItem('authenticateUser');
+    return sessionStorage.getItem(AUTHENTICATED_USER);
   }
 
   public getAuthenticatedToken(): string | null {
     if (this.getAuthenticatedUser()) {
-      return sessionStorage.getItem('token');
+      return sessionStorage.getItem(TOKEN);
     }
     return null;
   }
 
   public authenticate(username: string, password: string): boolean {
     if (this.authentication(username, password)) {
-      sessionStorage.setItem('authenticateUser', username);
+      sessionStorage.setItem(AUTHENTICATED_USER, username);
       this.isUserLoggedIn.set(true); // 👈 On informe Angular du changement d'état !
       return true;
     }
@@ -50,12 +51,12 @@ export class BasicAuthentication {
     let headers = new HttpHeaders({
       Authorization: basicAuthenticationHeaderString
     });
-    return this.http.get<AuthenticationBean>('http://localhost:8080/basicauth',
+    return this.http.get<AuthenticationBean>(`${API_URL}/basicauth`,
       {headers}).pipe(
       map(
         data => {
-          sessionStorage.setItem('authenticateUser', username);
-          sessionStorage.setItem('token', basicAuthenticationHeaderString);
+          sessionStorage.setItem(AUTHENTICATED_USER, username);
+          sessionStorage.setItem(TOKEN, basicAuthenticationHeaderString);
 
           this.isUserLoggedIn.set(true); // 👈 On informe Angular du changement d'état !
           return data;
@@ -71,8 +72,8 @@ export class BasicAuthentication {
   }
 
   logout(): void {
-    sessionStorage.removeItem('authenticateUser');
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem(AUTHENTICATED_USER);
+    sessionStorage.removeItem(TOKEN);
     this.isUserLoggedIn.set(false); // 👈 Met à jour l'état lors de la déconnexion
   }
 }
