@@ -19,7 +19,7 @@ public class TodoHardCodedService {
 
     }
 
-    public List<Todo> FindAll() {
+    public List<Todo> findAll() {
         return todos;
     }
 
