@@ -1,5 +1,8 @@
 package com.mytech.todo.webservices.todo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.util.Date;
@@ -10,7 +13,10 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Todo {
+    @Id
+    @GeneratedValue
     private Long id;
     private String username;
     private String description;

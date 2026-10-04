@@ -12,3 +12,16 @@ jwt:
   get:
     token:
       uri: /authenticate
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;NON_KEYWORDS=USER
+  h2:
+    console:
+      enabled: true
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+  jpa:
+    defer-datasource-initialization: true
