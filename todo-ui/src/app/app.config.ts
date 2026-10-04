@@ -7,7 +7,8 @@ import {HttpInterceptorBasicAuth} from './services/http/http-interceptor-basic-a
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes)
+    ,
     provideHttpClient(
       withInterceptorsFromDi() // Obligatoire pour charger les interceptors basés sur des classes
     ),

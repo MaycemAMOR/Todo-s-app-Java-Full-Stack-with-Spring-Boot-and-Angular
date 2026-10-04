@@ -2,7 +2,8 @@ import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {TodoBean} from '../models/todoBean';
 import {DatePipe, UpperCasePipe} from '@angular/common';
 import {TodoData} from '../services/data/todo-data';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import {BasicAuthentication} from '../services/basic-authentication';
 
 @Component({
   imports: [
@@ -20,24 +21,25 @@ export class ListTodos implements OnInit {
 
 
   todos: WritableSignal<TodoBean[] | null> = signal<TodoBean[] | null>(null);
-  name: string = '';
+  name: string | null = '';
   message: WritableSignal<String | null> = signal<String | null>(null);
 
   constructor(
     private todoService: TodoData,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private basicAuth: BasicAuthentication
   ) {
   }
 
   ngOnInit(): void {
-    this.name = this.route.snapshot.params['name'];
+    this.name = this.basicAuth.getAuthenticatedUser();
+    console.log(this.name);
     this.refreshTodos();
 
   }
 
   private refreshTodos() {
-    this.todoService.retrieveAllToDos(this.name).subscribe({
+    this.todoService.retrieveAllToDos(this.name!).subscribe({
       next: (response) => {
         console.log(response);
         this.todos.set(response);
@@ -50,7 +52,7 @@ export class ListTodos implements OnInit {
 
   protected deleteTodo(id: number) {
 
-    this.todoService.deleteTodo(this.name, id).subscribe({
+    this.todoService.deleteTodo(this.name!, id).subscribe({
       next: response => {
         console.log(response);
         this.message.set(`Delete of Todo ${id} Successful !`);

@@ -25,7 +25,18 @@ export class BasicAuthentication {
     return user !== null;
   }
 
-  authenticate(username: string, password: string): boolean {
+  public getAuthenticatedUser(): string | null {
+    return sessionStorage.getItem('authenticateUser');
+  }
+
+  public getAuthenticatedToken(): string | null {
+    if (this.getAuthenticatedUser()) {
+      return sessionStorage.getItem('token');
+    }
+    return null;
+  }
+
+  public authenticate(username: string, password: string): boolean {
     if (this.authentication(username, password)) {
       sessionStorage.setItem('authenticateUser', username);
       this.isUserLoggedIn.set(true); // 👈 On informe Angular du changement d'état !
@@ -34,7 +45,7 @@ export class BasicAuthentication {
     return false;
   }
 
-  executeBasicAuthenticationService(username: string, password: string) {
+  public executeBasicAuthenticationService(username: string, password: string) {
     let basicAuthenticationHeaderString = 'Basic ' + window.btoa(username + ':' + password)
     let headers = new HttpHeaders({
       Authorization: basicAuthenticationHeaderString
@@ -44,6 +55,8 @@ export class BasicAuthentication {
       map(
         data => {
           sessionStorage.setItem('authenticateUser', username);
+          sessionStorage.setItem('token', basicAuthenticationHeaderString);
+
           this.isUserLoggedIn.set(true); // 👈 On informe Angular du changement d'état !
           return data;
         }
@@ -59,6 +72,7 @@ export class BasicAuthentication {
 
   logout(): void {
     sessionStorage.removeItem('authenticateUser');
+    sessionStorage.removeItem('token');
     this.isUserLoggedIn.set(false); // 👈 Met à jour l'état lors de la déconnexion
   }
 }

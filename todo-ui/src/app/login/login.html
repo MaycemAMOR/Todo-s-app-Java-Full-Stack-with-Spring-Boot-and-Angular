@@ -1,11 +1,13 @@
 <H1>Login!</H1>
 <div class="container">
-  @if (invalidLogin) {
+  @if (invalidLogin()) {
     <div class=" alert alert-warning">{{ errorMsg }}</div>
   }
   <div>
     User Name : <input [(ngModel)]="username" type="text" name="username">
     Password : <input [(ngModel)]="password" type="password" name="password">
-    <button (click)="handleLogin()" class="btn btn-success">Login</button>
+<!--    <button (click)="handleLogin()" class="btn btn-success">Login</button>-->
+    <button (click)="handleBasicAuthLogin()" class="btn btn-success">Login</button>
+
   </div>
 </div>

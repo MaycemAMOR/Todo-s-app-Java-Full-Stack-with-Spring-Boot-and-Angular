@@ -1,6 +1,6 @@
 import {Component, OnInit, signal} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {HardcodedAuthentication} from '../services/hardcoded-authentication';
+import {RouterLink} from '@angular/router';
+import {BasicAuthentication} from '../services/basic-authentication';
 
 @Component({
   imports: [
@@ -15,8 +15,8 @@ export class Menu implements OnInit {
   public name = signal<string | null>(null);
 
   constructor(
-    public hardcodedAuthentication: HardcodedAuthentication,
-    private route: ActivatedRoute
+    // private hardcodedAuthentication: HardcodedAuthentication,
+    protected basicAuth: BasicAuthentication
   ) {
   }
 
