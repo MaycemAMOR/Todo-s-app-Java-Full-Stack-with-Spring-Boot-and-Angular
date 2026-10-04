@@ -16,7 +16,7 @@ import java.util.List;
 public class TodoJpaResource {
 
 
-    private final TodoHardCodedService todoService;
+//    private final TodoHardCodedService todoService;
     private final TodoJpaRepository todoJpaRepository;
 
     @GetMapping("/jpa/users/{username}/todos")
@@ -28,11 +28,8 @@ public class TodoJpaResource {
     //Delete /users/{username}/todos/{id}
     @DeleteMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
-        Todo todo = todoService.deleteById(id);
-        if (todo != null) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        todoJpaRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/jpa/users/{username}/todos/{id}")
@@ -52,10 +49,8 @@ public class TodoJpaResource {
             @PathVariable String username,
             @PathVariable long id,
             @RequestBody Todo todo) {
-        Todo todoUpdated = this.todoService.save(todo);
-
+        this.todoJpaRepository.save(todo);
         return new ResponseEntity<Todo>(todo, HttpStatus.OK);
-
     }
 
     //create a new todo
@@ -64,10 +59,18 @@ public class TodoJpaResource {
     public ResponseEntity<Todo> createTodo(
             @PathVariable String username,
             @RequestBody Todo todo) {
-        Todo createdTodo = this.todoService.save(todo);
+        todo.setId(null);
+        todo.setUsername(username);
+        Todo createdTodo = this.todoJpaRepository.save(todo);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        // envoyer location aprés la création de chaque todo
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(createdTodo.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
 }

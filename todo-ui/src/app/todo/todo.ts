@@ -58,7 +58,7 @@ export class Todo implements OnInit {
     const todoValue = this.todo(); // Extraction de la valeur du Signal
     if (!todoValue) return;
 
-    if (this.todoId === -1) {
+    if (this.todoId == -1) {
       //creation de todo
       this.todoService.createTodo(this.name, todoValue).subscribe({
         next: (response) => {
